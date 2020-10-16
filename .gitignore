@@ -29,3 +29,5 @@ rebel.xml
 
 # mac
 .DS_Store
+
+/out
