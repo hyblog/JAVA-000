@@ -15,3 +15,11 @@
 ![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_01/node/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png)
 
 ------------
+
+#### 2、JVM内存模型
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_01/node/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png)
+
+------------
