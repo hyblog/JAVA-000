@@ -32,6 +32,23 @@
 
 ------------
 
+#### 5、JDK命令行工具
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_01/node/JDK%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7.png)
+
+------------
+
+#### 6、GC垃圾回收
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_01/node/GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.png)
+
+------------
+
+
 # 作业一
 #### 1、分析字节码，包含基本数据类型、四则运算、对象引用、流程控制
 ------------
