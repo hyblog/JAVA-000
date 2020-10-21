@@ -365,23 +365,56 @@ public class Node2 extends ClassLoader {
 ** $ jps -lvm**
 ```java
 jdk1.8.0_65/bin/java
--server								      //以Server模式运行，YoungGC使用ParallelGC
--XX:+UseConcMarkSweepGC					  //老年代GC使用CMS
--XX:CMSInitiatingOccupancyFraction=75	  //触发老年代GC阈值75%
--XX:+UseCMSInitiatingOccupancyOnly		  //让JVM每次都使用CMSInitiatingOccupancyFraction阈值进行垃圾回收，而不是让JVM自己做决策
--Xss1m									  //线程栈大小
--Dfile.encoding=UTF-8					  //设置系统字符编码
--XX:-OmitStackTraceInFastThrow			  //关闭省略频繁抛出异常后没有堆栈信息，-server模式下默认开启
--XX:+HeapDumpOnOutOfMemoryError 		  //当JVM发生OOM时，自动生产DUMP文件
--XX:HeapDumpPath=/export/xxx/log/inst-0   //指定DUMP文件路径
--XX:ErrorFile=logs/hs_err_pid%p.log 	  //程序崩溃时生成错误日志
--XX:+PrintGCDetails						  //GC时打印日志
--XX:+PrintGCDateStamps 					  //打印GC时的日期
--XX:+PrintTenuringDistribution 			  //打印MinnorGC年龄段对象大小
--XX:+PrintGCApplicationStoppedTime		  //打印GC时STW时间
--Xloggc:logs/gc.log 					  //GC的日志目录
--Xmx31G									  //最大堆（当前服务器的50%）
--Xms31G									  //最小堆
+//以Server模式运行，YoungGC使用ParallelGC
+-server								   
+   
+//老年代GC使用CMS
+-XX:+UseConcMarkSweepGC
+
+//触发老年代GC阈值75%
+-XX:CMSInitiatingOccupancyFraction=75
+	  
+//让JVM每次都使用CMSInitiatingOccupancyFraction阈值进行垃圾回收，而不是让JVM自己做决策
+-XX:+UseCMSInitiatingOccupancyOnly		  
+
+//线程栈大小
+-Xss1m		
+							  
+//设置系统字符编码
+-Dfile.encoding=UTF-8
+					  
+//关闭省略频繁抛出异常后没有堆栈信息，-server模式下默认开启
+-XX:-OmitStackTraceInFastThrow			  
+
+//当JVM发生OOM时，自动生产DUMP文件
+-XX:+HeapDumpOnOutOfMemoryError
+ 		  
+//指定DUMP文件路径
+-XX:HeapDumpPath=/export/xxx/log/inst-0
+   
+//程序崩溃时生成错误日志
+-XX:ErrorFile=logs/hs_err_pid%p.log
+ 	  
+//GC时打印日志
+-XX:+PrintGCDetails
+						  
+//打印GC时的日期
+-XX:+PrintGCDateStamps
+ 					  
+//打印MinnorGC年龄段对象大小
+-XX:+PrintTenuringDistribution
+ 			  
+//打印GC时STW时间
+-XX:+PrintGCApplicationStoppedTime
+		  
+//GC的日志目录
+-Xloggc:logs/gc.log
+ 					  
+//最大堆（当前服务器的50%）
+-Xmx31G					
+				  
+//最小堆
+-Xms31G									  
 
 ```
 ------------
