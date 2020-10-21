@@ -365,23 +365,23 @@ public class Node2 extends ClassLoader {
 ** $ jps -lvm**
 ```java
 jdk1.8.0_65/bin/java
--server																	 //以Server模式运行，YoungGC使用ParallelGC
--XX:+UseConcMarkSweepGC													 //老年代GC使用CMS
--XX:CMSInitiatingOccupancyFraction=75								     //触发老年代GC阈值75%
--XX:+UseCMSInitiatingOccupancyOnly									     //让JVM每次都使用CMSInitiatingOccupancyFraction阈值进行垃圾回收，而不是让JVM自己做决策
--Xss1m																	 //线程栈大小
--Dfile.encoding=UTF-8												     //设置系统字符编码
--XX:-OmitStackTraceInFastThrow											 //关闭省略频繁抛出异常后没有堆栈信息，-server模式下默认开启
--XX:+HeapDumpOnOutOfMemoryError 								         //当JVM发生OOM时，自动生产DUMP文件
--XX:HeapDumpPath=/export/xxx/log/inst-0  						         //指定DUMP文件路径
--XX:ErrorFile=logs/hs_err_pid%p.log 									 //程序崩溃时生成错误日志
--XX:+PrintGCDetails													     //GC时打印日志
--XX:+PrintGCDateStamps 													 //打印GC时的日期
--XX:+PrintTenuringDistribution 										     //打印MinnorGC年龄段对象大小
--XX:+PrintGCApplicationStoppedTime									     //打印GC时STW时间
--Xloggc:logs/gc.log 												     //GC的日志目录
--Xmx31G																	 //最大堆（当前服务器的50%）
--Xms31G																	 //最小堆
+-server								      //以Server模式运行，YoungGC使用ParallelGC
+-XX:+UseConcMarkSweepGC					  //老年代GC使用CMS
+-XX:CMSInitiatingOccupancyFraction=75	  //触发老年代GC阈值75%
+-XX:+UseCMSInitiatingOccupancyOnly		  //让JVM每次都使用CMSInitiatingOccupancyFraction阈值进行垃圾回收，而不是让JVM自己做决策
+-Xss1m									  //线程栈大小
+-Dfile.encoding=UTF-8					  //设置系统字符编码
+-XX:-OmitStackTraceInFastThrow			  //关闭省略频繁抛出异常后没有堆栈信息，-server模式下默认开启
+-XX:+HeapDumpOnOutOfMemoryError 		  //当JVM发生OOM时，自动生产DUMP文件
+-XX:HeapDumpPath=/export/xxx/log/inst-0   //指定DUMP文件路径
+-XX:ErrorFile=logs/hs_err_pid%p.log 	  //程序崩溃时生成错误日志
+-XX:+PrintGCDetails						  //GC时打印日志
+-XX:+PrintGCDateStamps 					  //打印GC时的日期
+-XX:+PrintTenuringDistribution 			  //打印MinnorGC年龄段对象大小
+-XX:+PrintGCApplicationStoppedTime		  //打印GC时STW时间
+-Xloggc:logs/gc.log 					  //GC的日志目录
+-Xmx31G									  //最大堆（当前服务器的50%）
+-Xms31G									  //最小堆
 
 ```
 ------------
@@ -493,11 +493,11 @@ concurrent mark-sweep generation:
 
 说明
 【线程状态】
-		【NEW】未启动，RUNABLE在虚拟机内执行的
-		【BLOCKED】受阻塞的并等待监听器锁
-        【WATING】无限等待另外一个线程执行特定的操作
-        【TIMED_WATING】有期限的等待另外一个线程执行特定的操作
-	    【TERNUBATED】已退出的
+    【NEW】未启动，RUNABLE在虚拟机内执行的
+    【BLOCKED】受阻塞的并等待监听器锁
+    【WATING】无限等待另外一个线程执行特定的操作
+    【TIMED_WATING】有期限的等待另外一个线程执行特定的操作
+    【TERNUBATED】已退出的
 【deamon】守护进程
 【prio和os_prio】分别代表线程在JVM优先级，操作系统优先级
 【tid】内部线程控制结构的java内存地址（16进制）
@@ -519,7 +519,7 @@ Server compiler detected.
 JVM version is 25.91-b14
 
 using thread-local object allocation.
-Garbage-First (G1) GC with 8 thread(s)				               //G1	
+Garbage-First (G1) GC with 8 thread(s)				            //G1	
 
 Heap Configuration:
    MinHeapFreeRatio         = 40
@@ -533,7 +533,7 @@ Heap Configuration:
    MetaspaceSize            = 21807104 (20.796875MB)
    CompressedClassSpaceSize = 1073741824 (1024.0MB)
    MaxMetaspaceSize         = 17592186044415 MB
-   G1HeapRegionSize         = 4194304 (4.0MB)                      //单个区块的大小=8192MB/2048
+   G1HeapRegionSize         = 4194304 (4.0MB)                   //单个区块的大小=8192MB/2048
 
 Heap Usage:
 G1 Heap:
