@@ -1,5 +1,9 @@
 package Week_01;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by ipipman on 2020/10/17.
  *
@@ -28,5 +32,8 @@ public class Test {
                 num3 = num3 / num2;
             }
         }
+        ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+
+
     }
 }
