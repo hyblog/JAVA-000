@@ -1,3 +1,4 @@
+
 # 作业六
 
 #### 通过分配大对象，分析各种GC日志
@@ -5,7 +6,7 @@
 ------------
 
 ##### 1、分析SerialGC日志
-$ java -XX:+UseSerialGC -Xms1g -Xmx1g -XX:+PrintGCDetails  Week_01/GCLogAnalysis
+- $ java -XX:+UseSerialGC -Xms1g -Xmx1g -XX:+PrintGCDetails  Week_01/GCLogAnalysis
 
 `在1秒钟内共生成了11517个对象`
 `触发了多次YoungGC和1次TenuredGC，共10次GC`
@@ -39,7 +40,7 @@ Heap
 ------------
 
 ##### 2、分析ParallelGC日志
-$ java -XX:+UseParallelGC -XX:ParallelGCThreads=7 -Xms1g -Xmx1g -XX:+PrintGCDetails  Week_01/GCLogAnalysis
+- $ java -XX:+UseParallelGC -XX:ParallelGCThreads=7 -Xms1g -Xmx1g -XX:+PrintGCDetails  Week_01/GCLogAnalysis
 
 `当前服务器8C，GC并行线程数这是为7`
 `在1秒钟内共生成了12156个对象`
@@ -47,7 +48,7 @@ $ java -XX:+UseParallelGC -XX:ParallelGCThreads=7 -Xms1g -Xmx1g -XX:+PrintGCDeta
 `最后一次GC后堆空间剩余167Mib`
 `在1秒钟之内应用线程STW了400ms，STW平均：18ms`
 
-** ParallelGC总结：ParallelGC和SerialGC对象分配速度和总的STW时间性能相似，但是平均STW时间相差近半 **
+-  ParallelGC总结：ParallelGC和SerialGC对象分配速度和总的STW时间性能相似，但是平均STW时间相差近半
 
 ```java
 [GC (Allocation Failure) [PSYoungGen: 262144K->43502K(305664K)] 262144K->74885K(1005056K), 0.0279695 secs] [Times: user=0.03 sys=0.14, real=0.03 secs] 
@@ -88,11 +89,11 @@ Heap
 ------------
 
 ##### 3、分析CMS和ParallelGC性能
-$ java -XX:+UseConcMarkSweepGC -XX:ConcGCThreads=3 -XX:MaxGCPauseMillis=50 -Xms1g -Xmx1g -XX:+PrintGCDetails  Week_01/GCLogAnalysis
+- $ java -XX:+UseConcMarkSweepGC -XX:ConcGCThreads=3 -XX:MaxGCPauseMillis=50 -Xms1g -Xmx1g -XX:+PrintGCDetails  Week_01/GCLogAnalysis
 
 `当前服务器8C，CMS并发线程数设置为3，最大GC时间50ms，ParNew并行线程数7。ParallelGC并行线程数7`
 
-** CMS和ParallelGC比较总结：CMS触发GC的频率要比ParallelGC高，但是CMS平均STW时间性能高30%。两者内存的分配速度相差不大（前提是没有FullGC，在FullGC的场景下，ParallelGC性能比CMS高） **
+-  CMS和ParallelGC比较总结：CMS触发GC的频率要比ParallelGC高，但是CMS平均STW时间性能高30%。两者内存的分配速度相差不大（前提是没有FullGC，在FullGC的场景下，ParallelGC性能比CMS高）
 
 ```java
 // 分析CMS停顿时间和生成对象的速度（平均29ms）
@@ -139,11 +140,11 @@ Total time for which application threads were stopped: 0.0731342 seconds, Stoppi
 ------------
 
 ##### 3、分析G1和CMS性能
-$ java  -XX:+UseG1GC  -XX:ConcGCThreads=3   -XX:MaxGCPauseMillis=50  -Xms1g -Xmx1g -XX:+PrintGCDetails  -XX:-PrintGCApplicationStoppedTime    Week_01/GCLogAnalysis
+- $ java  -XX:+UseG1GC  -XX:ConcGCThreads=3   -XX:MaxGCPauseMillis=50  -Xms1g -Xmx1g -XX:+PrintGCDetails  -XX:-PrintGCApplicationStoppedTime    Week_01/GCLogAnalysis
 
 `当前服务器8C，G1并发线程数设置为3，最大GC时间50ms`
 
-** G1和CMS比较总结：G1触发GC的频率要比CMS高，但是G1平均STW时间性能快5倍，G1最大STW时间也比CMS平均快60%。两者内存的分配速度相差不大（前提是没有FullGC，在FullGC的场景下，G1性能比CMS高） **
+- G1和CMS比较总结：G1触发GC的频率要比CMS高，但是G1平均STW时间性能快5倍，G1最大STW时间也比CMS平均快60%。两者内存的分配速度相差不大（前提是没有FullGC，在FullGC的场景下，G1性能比CMS高）
 
 ```java
 //分析G1停顿时间和生成对象的速度（平均6ms）
