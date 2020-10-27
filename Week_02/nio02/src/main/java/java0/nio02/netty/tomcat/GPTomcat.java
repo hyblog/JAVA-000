@@ -5,22 +5,15 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponseDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import java0.nio02.netty.tomcat.http.GPServlet;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.SocketHandler;
 
 /**
  * Created by ipipman on 2020/10/26.

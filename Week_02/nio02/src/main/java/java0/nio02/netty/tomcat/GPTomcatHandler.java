@@ -3,6 +3,9 @@ package java0.nio02.netty.tomcat;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.HttpRequest;
+import java0.nio02.netty.tomcat.http.GPServlet;
+import java0.nio02.netty.tomcat.http.GPTomcatRequest;
+import java0.nio02.netty.tomcat.http.GPTomcatResponse;
 
 import java.util.HashMap;
 import java.util.Map;

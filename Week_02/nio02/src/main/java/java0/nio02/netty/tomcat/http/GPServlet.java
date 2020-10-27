@@ -1,4 +1,4 @@
-package java0.nio02.netty.tomcat;
+package java0.nio02.netty.tomcat.http;
 
 import io.netty.handler.codec.http.HttpMethod;
 

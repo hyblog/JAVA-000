@@ -1,4 +1,8 @@
-package java0.nio02.netty.tomcat;
+package java0.nio02.netty.tomcat.servlet;
+
+import java0.nio02.netty.tomcat.http.GPServlet;
+import java0.nio02.netty.tomcat.http.GPTomcatRequest;
+import java0.nio02.netty.tomcat.http.GPTomcatResponse;
 
 /**
  * Created by ipipman on 2020/10/26.
