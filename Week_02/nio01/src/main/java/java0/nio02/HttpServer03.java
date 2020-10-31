@@ -23,16 +23,16 @@ public class HttpServer03 {
     
     private static void service(Socket socket) {
         try {
-            Thread.sleep(20);
-            System.out.println(3);
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
             printWriter.println("HTTP/1.1 200 OK");
             printWriter.println("Content-Type:text/html;charset=utf-8");
             printWriter.println();
-            printWriter.write("hello,nio");
+            String resultMsg = "hello,nio";
+            printWriter.write(resultMsg);
+            printWriter.println("Content-Length:" + printWriter.toString().length());
             printWriter.close();
             socket.close();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
