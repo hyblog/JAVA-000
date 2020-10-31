@@ -79,7 +79,7 @@ public class RpcProxy {
             msg.setParames(method.getParameterTypes());
             ;
 
-            final  consumerHandler = new RpcProxyHandler();
+            final  RpcProxyHandler consumerHandler = new RpcProxyHandler();
             EventLoopGroup group = new NioEventLoopGroup();
             try {
                 Bootstrap b = new Bootstrap();
@@ -104,7 +104,7 @@ public class RpcProxy {
                                 //对象参数类型编码器
                                 pipeline.addLast("encoder", new ObjectEncoder());
                                 //对象参数类型解码器
-                                pipeline.addLast("decoder", newRpcProxyHandler ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+                                pipeline.addLast("decoder",  new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
                                 pipeline.addLast("handler", consumerHandler);
                             }
                         });
