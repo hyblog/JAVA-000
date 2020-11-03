@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
+import java.util.concurrent.locks.Lock;
 
 /**
  * Created by ipipman on 2020/10/16.
@@ -51,6 +52,7 @@ public class Node2 extends ClassLoader {
             for (int i = 0; i < Objects.requireNonNull(helloClassBytes).length; i++) {
                 helloClassBytes[i] = (byte) (255 - helloClassBytes[i]);
             }
+
             // 加载自定义Hello类
             return defineClass(name, helloClassBytes, 0, helloClassBytes.length);
 
