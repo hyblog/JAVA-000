@@ -1,6 +1,7 @@
 package task.gateway.handler;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.epoll.EpollChannelOption;
@@ -9,14 +10,17 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.*;
+import io.netty.util.CharsetUtil;
 import io.netty.util.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import task.gateway.client.ClientHandler;
 import task.gateway.domain.GatewayResponse;
 import task.gateway.entity.EndPoIntInfo;
 import task.gateway.server.GatewayInitConfig;
 import task.gateway.utils.HttpUtil;
 
+import java.lang.management.ThreadInfo;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,28 +48,45 @@ public class DispatchCoreHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof HttpRequest) {
-            //代理分发
+//            //代理分发（Ok HTTP）
+//            HttpRequest request = (HttpRequest) msg;
+//            try {
+//                FullHttpResponse response = GatewayResponse.toResponse(
+//                        HttpResponseStatus.FORBIDDEN,
+//                        randomInvoke(request.getUri()),
+//                        Charset.defaultCharset(),
+//                        GatewayResponse.CONTYPE_JOSN
+//                );
+//                if (null != config.filterInfo) {
+//                    response.headers().set("Server",
+//                            config.filterInfo.getServerName() + " " + config.filterInfo.getServerVersion());
+//                }
+//                logger.info(response.toString());
+//                ctx.write(response);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                ctx.flush();
+//                ctx.close();
+//            }
+
+            //代理分发（Netty）
             HttpRequest request = (HttpRequest) msg;
             try {
-                FullHttpResponse response = GatewayResponse.toResponse(
-                        HttpResponseStatus.FORBIDDEN,
-                        randomInvoke(request.getUri()),
-                        Charset.defaultCharset(),
-                        GatewayResponse.CONTYPE_JOSN
+                EndPoIntInfo endPoIntInfo = config.endPointList.get((int) (Math.random() * config.endPointList.size()));
+                ClientHandler.start(
+                        endPoIntInfo.getIp(),
+                        endPoIntInfo.getPort(),
+                        request.getUri(),
+                        ctx
                 );
-                if (null != config.filterInfo) {
-                    response.headers().set("Server",
-                            config.filterInfo.getServerName() + " " + config.filterInfo.getServerVersion());
-                }
-                logger.info(response.toString());
-                ctx.write(response);
-
             } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
                 ctx.flush();
                 ctx.close();
+                e.printStackTrace();
             }
+
         }
     }
 

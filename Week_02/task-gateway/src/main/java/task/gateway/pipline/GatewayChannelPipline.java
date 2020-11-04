@@ -2,10 +2,10 @@ package task.gateway.pipline;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.codec.http.*;
 import task.gateway.handler.AccessFilterHandler;
 import task.gateway.handler.DispatchCoreHandler;
+import task.gateway.handler.ProxyOutBoundHandler;
 import task.gateway.server.GatewayInitConfig;
 
 /**
@@ -39,5 +39,6 @@ public class GatewayChannelPipline extends ChannelInitializer<SocketChannel> {
         if (null != config.endPointList && config.endPointList.size() > 0){
             client.pipeline().addLast(new DispatchCoreHandler(config));
         }
+
     }
 }

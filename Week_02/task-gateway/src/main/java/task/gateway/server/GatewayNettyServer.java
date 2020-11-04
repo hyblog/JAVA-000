@@ -23,8 +23,6 @@ public class GatewayNettyServer {
     EventLoopGroup workerGroup = new NioEventLoopGroup(6);
 
     public void start(GatewayInitConfig config){
-
-        System.out.println(config);
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
