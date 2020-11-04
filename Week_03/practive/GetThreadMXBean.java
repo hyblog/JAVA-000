@@ -31,5 +31,7 @@ public class GetThreadMXBean {
              */
             System.out.println("[" + threadInfo.getThreadId() + "] " + threadInfo.getThreadName());
         }
+
     }
+
 }
