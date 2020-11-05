@@ -1,4 +1,4 @@
-package Week_04.practive;
+package Week_04.demo;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -29,7 +29,7 @@ public class VerboseLockView {
 
     public static void main(String[] args) {
 
-        Week_03.practive.VerboseLockView lockView = new Week_03.practive.VerboseLockView();
+        VerboseLockView lockView = new VerboseLockView();
         //锁方法
         lockView.synchronizedFun();
         //锁代码块
