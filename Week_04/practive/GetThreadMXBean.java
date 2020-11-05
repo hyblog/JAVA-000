@@ -1,4 +1,4 @@
-package Week_03.practive;
+package Week_04.practive;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
