@@ -16,6 +16,15 @@
 
 ------------
 
+#### 2、Netty线程模式
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_02/note/Netty%E6%A0%B8%E5%BF%83%E5%86%85%E5%B9%95.png)
+
+------------
+
+
 # 作业
 #### 1、Netty网关设计
 ------------
