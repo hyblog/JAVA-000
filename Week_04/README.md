@@ -8,4 +8,12 @@
 
 ------------
 
+#### 2、线程安全
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_04/note/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8.png)
+
+------------
+
 
