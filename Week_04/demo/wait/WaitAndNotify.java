@@ -1,5 +1,6 @@
 package Week_04.demo.wait;
 
+
 /**
  * Created by ipipman on 2020/11/5.
  *
@@ -44,8 +45,8 @@ public class WaitAndNotify {
         t1.start();
         t2.start();
         t3.start();
-    }
 
+    }
 
 }
 
