@@ -18,27 +18,30 @@ public class CreateThreadPoolExecutor {
 
     static LongAdder taskIndex = new LongAdder();
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        //创建线程池
+    public static void main(String[] args) {
         ThreadPoolExecutor executor = initThreadPoolExecutor();
-        List<Future<?>> futureList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            try {
-                //创建task拿到返回结果
-                Future<?> future = executor.submit(new TaskCallable());
-                futureList.add(future);
-            } catch (RejectedExecutionException e) {
-                // e.printStackTrace();
-                System.out.println("线程池的缓冲队列满了...");
+        try {
+            List<Future<?>> futureList = new ArrayList<>();
+            for (int i = 0; i < 100; i++) {
+                try {
+                    //创建task拿到返回结果
+                    Future<?> future = executor.submit(new TaskCallable());
+                    futureList.add(future);
+                } catch (RejectedExecutionException e) {
+                    // e.printStackTrace();
+                    System.out.println("线程池的缓冲队列满了...");
+                }
             }
-
+            for (Future<?> future : futureList) {
+                //阻塞等待，拿到所有线程执行结果
+                System.out.println("task-result-" + future.get());
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            //关闭线程池
+            executor.shutdown();
         }
-        for (Future<?> future : futureList) {
-            //阻塞等待，拿到所有线程执行结果
-            System.out.println("task-result-" + future.get());
-        }
-        //关闭线程池
-        executor.shutdown();
     }
 
     //自定义任务
