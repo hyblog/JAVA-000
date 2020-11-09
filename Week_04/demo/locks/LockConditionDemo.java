@@ -1,6 +1,5 @@
-package Week_04.demo.juc;
+package Week_04.demo.locks;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 

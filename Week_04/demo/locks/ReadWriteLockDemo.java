@@ -1,8 +1,5 @@
-package Week_04.demo.juc;
+package Week_04.demo.locks;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 

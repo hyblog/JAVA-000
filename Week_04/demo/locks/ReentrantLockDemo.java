@@ -1,4 +1,4 @@
-package Week_04.demo.juc;
+package Week_04.demo.locks;
 
 import java.util.concurrent.locks.ReentrantLock;
 

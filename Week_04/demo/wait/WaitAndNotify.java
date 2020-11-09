@@ -51,6 +51,7 @@ public class WaitAndNotify {
 
 
 class MyThread {
+
     private final int MAX_COUNT = 10;
 
     private volatile Integer productIndex = 0;
@@ -65,6 +66,7 @@ class MyThread {
             } else {
                 productIndex++;
             }
+
             notifyAll();
         }
     }
