@@ -19,7 +19,6 @@ public class CreateScheduledThreadPool {
 
     private static final Integer MAX_POOL = 100;
 
-
     public static void main(String[] args) {
         //创建定时线程池
         ScheduledExecutorService executorService = initScheduledThreadPoll();
@@ -28,6 +27,7 @@ public class CreateScheduledThreadPool {
             List<ScheduledFuture<String>> scheduleTaskList = new ArrayList<>();
             for (int i = 0; i < 100; i++) {
                 try {
+                    //提交调度任务，3s执行一次
                     ScheduledFuture<String> scheduleTask = executorService.schedule(
                             new Callable<String>() {
                                 @Override
@@ -35,7 +35,7 @@ public class CreateScheduledThreadPool {
                                     return Thread.currentThread().getName();
                                 }
                             },
-                            3, //3s
+                            randomDelay(), //3s
                             TimeUnit.SECONDS
                     );
                     scheduleTaskList.add(scheduleTask);
@@ -54,6 +54,10 @@ public class CreateScheduledThreadPool {
         } finally {
             executorService.shutdown();
         }
+    }
+
+    static int randomDelay(){
+        return (int) (Math.random() * 10);
     }
 
     //自定义线程工常
