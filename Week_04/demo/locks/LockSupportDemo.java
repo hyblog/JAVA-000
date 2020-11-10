@@ -17,6 +17,7 @@ public class LockSupportDemo {
     static Thread t = null;
 
     public static void main(String[] args) {
+
         for (int i = 0; i < 100; i++) {
             //暂停线程
             new Thread(() -> {

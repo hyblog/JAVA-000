@@ -39,7 +39,7 @@
 ------------
 
 #### 6、第七节作业，必做，作业二（在main方法调用新线程，拿到响应后，退出主线程）
-############## TheadPoolExecutor + Future 方式
+######  TheadPoolExecutor + Future 方式
 ```java
 package Week_04.demo.pool;
 
@@ -136,7 +136,7 @@ public class CreateThreadPoolExecutor {
 }
 ```
 
-####### ScheduledThreadPool + Future 方式
+###### ScheduledThreadPool + Future 方式
 ```java
 package Week_04.demo.pool;
 
@@ -220,7 +220,7 @@ public class CreateScheduledThreadPool {
 }
 ```
 
-####### CacheThreadPool + Future 方式
+###### CacheThreadPool + Future 方式
 ```java
 package Week_04.demo.pool;
 

@@ -1,5 +1,6 @@
 package Week_04.demo.semaphore;
 
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -15,18 +16,23 @@ public class CountDownLatchDemo {
     static CountDownLatch countDownLatch = new CountDownLatch(5);
 
     public static void main(String[] args) {
-        for (int i = 0; i < 5; i++) {
-            new Thread(() -> {
-                printThreadName();
-            }).start();
+
+        while (true){
+            System.out.println(countDownLatch.getCount());
+            for (int i = 0; i < 5; i++) {
+                new Thread(() -> {
+                    printThreadName();
+                }).start();
+            }
+            //等待线程执行完毕
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(countDownLatch.getCount());
+            countDownLatch = new CountDownLatch(5);
         }
-        //等待线程执行完毕
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(countDownLatch.getCount());
     }
 
     public static void printThreadName() {
@@ -37,5 +43,4 @@ public class CountDownLatchDemo {
             countDownLatch.countDown();
         }
     }
-
 }
