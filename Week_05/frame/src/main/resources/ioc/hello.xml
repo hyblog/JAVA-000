@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        XML配置Bean一共有四中方法
+        方式一：通过property创建一个无参Bean
+        方式二：通过construct-arg创建一个有参的Bean
+        方式三：通过class创建一个静态Bean
+        方式四：通过factory-bean创建一个非静态Bean
+       -->
+
+    <!-- 自定义IOC容器Bean -->
+    <bean id="student" class="com.springboot.frame.ioc.xml.Student">
+        <!--        <property name="name" value="zhangsan"/>-->
+        <!--        <property name="age" value="13"/>-->
+        <constructor-arg index="0" value="zhangsan"/>
+        <constructor-arg index="1" value="13"/>
+        <property name="classList">
+            <list>
+                <value>math</value>
+                <value>english</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 自定义IOC容器无参Bean -->
+    <bean id="helloService" class="com.springboot.frame.ioc.xml.HelloService">
+        <property name="student" ref="student"/>
+        <property name="animal" ref="dog"/>
+    </bean>
+
+
+    <!--  自定用IOC容器Bean，一个工厂方法  -->
+    <bean name="animalFactory" class="com.springboot.frame.ioc.xml.AnimalFactory"/>
+    <bean id="dog" factory-bean="animalFactory" factory-method="getAnimal">
+        <constructor-arg value="dog"/>
+    </bean>
+    <bean id="cat" factory-bean="animalFactory" factory-method="getAnimal">
+        <constructor-arg value="cat"/>
+    </bean>
+
+</beans>
