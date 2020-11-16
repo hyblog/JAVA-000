@@ -1,1 +1,41 @@
-学习笔记
+# 学习笔记
+
+#### 1、IOC基础BeanFactory
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_05/note/IOC%E5%9F%BA%E7%A1%80-BF.png)
+
+------------
+
+#### 2、IOC基础-ApplicationContext
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_05/note/ICO%E5%9F%BA%E7%A1%80-AC.png)
+
+------------
+
+#### 3、IOC-工作机制
+
+------------
+
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_05/note/IOC%E5%9F%BA%E7%A1%80-%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6.png)
+
+------------
+
+
+#### 4、第九节作业，必做，写代码实现Spring Bean的装配，方式越多越好(XML、Annotation都可以),提 交到Github。
+#####  XML方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc")
+- 方式一：通过property创建一个无参Bean
+- 方式二：通过construct-arg创建一个有参的Bean
+- 方式三：通过class创建一个静态Bean
+- 方式四：通过factory-bean创建一个非静态Bean
+
+#####  ANN方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/ioc")
+- 通过注解：@Configuration、@Component、@Service、@Bean、@Qualifier
+- 继承BeanFactoryPostProcessor的Bean后处理器postProcessBeanFactory方法，获取BeanDefinition后修改Bean属性
+- 继承ImportBeanDEfinitionRegistrar接口，重新registerBeanDefinitions方法，注入自定义Bean，通过@Import注解注入Bean
+- 继承InstantiationAwareBeanPostProcessor接口，实现postProcessBeforeInstantiation和postProcessAfterInstantiation方法，修改Bean的属性
+- 继承BeanDefinitionRegistryPostProcessor接口，实现postProcessBeanDefinitionRegistry方法，完成自定义Bean注入
+- 继承FactoryBean<T>接口，实现getObject方法，返回Bean工厂对象，完成自定义Bean注入
