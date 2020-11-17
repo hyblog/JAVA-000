@@ -24,18 +24,38 @@
 
 ------------
 
+#### 4、AOP基础
 
-#### 4、第九节作业，必做，写代码实现Spring Bean的装配，方式越多越好(XML、Annotation都可以),提 交到Github。
-#####  XML方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc")
-- 方式一：通过property创建一个无参Bean
-- 方式二：通过construct-arg创建一个有参的Bean
-- 方式三：通过class创建一个静态Bean
-- 方式四：通过factory-bean创建一个非静态Bean
+------------
 
+![](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_05/note/AOP%E5%9F%BA%E7%A1%80.png)
+
+------------
+
+#### 5、第九节作业，选做，使Java里的动态代理，实现一个简单的AOP
+#####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/proxy](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/proxy "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/proxy")
+- 方式一：基于静态代理方式
+- 方式二：基于JDK1.3后Java Proxy的InvocationHandler接口实现
+- 方式三：基于CGLIB的MethodInterceptor接口实现
+- 方式四：基于Javassist的MethodHandler接口实现
+- 方式五：基于SpringAOP的@Aspect与自定义注解实现
+
+------------
+
+#### 6、第九节作业，必做，写代码实现Spring Bean的装配，方式越多越好(XML、Annotation都可以),提 交到Github。
 #####  ANN方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/java/com/springboot/frame/ioc")
-- 通过注解：@Configuration、@Component、@Service、@Bean、@Qualifier
+- 通过注解：@Configuration、@Component、@Service、@Bean、@Qualifier、@Controller
 - 继承BeanFactoryPostProcessor的Bean后处理器postProcessBeanFactory方法，获取BeanDefinition后修改Bean属性
 - 继承ImportBeanDEfinitionRegistrar接口，重新registerBeanDefinitions方法，注入自定义Bean，通过@Import注解注入Bean
 - 继承InstantiationAwareBeanPostProcessor接口，实现postProcessBeforeInstantiation和postProcessAfterInstantiation方法，修改Bean的属性
 - 继承BeanDefinitionRegistryPostProcessor接口，实现postProcessBeanDefinitionRegistry方法，完成自定义Bean注入
 - 继承FactoryBean<T>接口，实现getObject方法，返回Bean工厂对象，完成自定义Bean注入
+
+------------
+
+#### 7、第九节作业，选做，实现一个Spring XML自定义配置，配置一组Bean，例如Student/Klass/School。
+#####  XML方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc")
+- 方式一：通过property创建一个无参Bean
+- 方式二：通过construct-arg创建一个有参的Bean
+- 方式三：通过class创建一个静态Bean
+- 方式四：通过factory-bean创建一个非静态Bean
