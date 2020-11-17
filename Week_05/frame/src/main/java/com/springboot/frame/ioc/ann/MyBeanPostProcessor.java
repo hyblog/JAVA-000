@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @Description: (用一句话描述该文件做什么)
  * @date 2020/11/16 11:20 下午
  */
-@Component
+//@Component
 public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
 
 
