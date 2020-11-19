@@ -108,9 +108,14 @@
 
 ------------
 
-#### 9、第九节作业，选做，maven/spring的profile机制，都有什么用法?
-#####  XML方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc")
-- 方式一：通过property创建一个无参Bean
-- 方式二：通过construct-arg创建一个有参的Bean
-- 方式三：通过class创建一个静态Bean
-- 方式四：通过factory-bean创建一个非静态Bean
+#### 9、第十节作业，选做，maven/spring的profile机制，都有什么用法?
+#####  POM：[https://github.com/hyblog/JAVA-000/blob/main/Week_05/work05-sb2/pom.xml](https://github.com/hyblog/JAVA-000/blob/main/Week_05/work05-sb2/pom.xml "https://github.com/hyblog/JAVA-000/blob/main/Week_05/work05-sb2/pom.xml")
+- POM准备一：定义profile环境变量，根据环境定义resource，使用maven-compiler-plugin插件打包
+- POM准备二：使用maven-assembly-plugin插件，在target目录下实现自定义抽包
+- Shell准备三：编写项目的启动、停止Shell脚本，实现自定义JVM启动参数
+- 使用一：指定环境打包：mvn install -Ptest  -Dmaven.test.skip=true
+- 使用二：使用shell脚本启动项目：sh bin/service.sh start
+- 效果如下：
+```java
+com.ipman.work05sb2.Work05Sb2Application -Dfile.encoding=UTF8 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=3302 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/huangyan110110114/loclog/work/work05-sb2 -Xms8g -Xmx8g -Djava.net.preferIPv4Stack=true -XX:NewSize=3072m -XX:MaxNewSize=4096m -XX:+UseG1GC -XX:MaxGCPauseMillis=90 -XX:InitiatingHeapOccupancyPercent=70 -XX:ParallelGCThreads=8 -XX:ConcGCThreads=6 -XX:+PrintGCDetails -XX:+PrintReferenceGC -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintHeapAtGC -Xloggc:../logs/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:ErrorFile=../logs/hs_err_pid%p.log
+```

@@ -1,0 +1,2 @@
+#Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.ipman.work05springbootstartertest.Work05TestAutoConfiguration
