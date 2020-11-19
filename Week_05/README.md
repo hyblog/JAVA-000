@@ -62,7 +62,7 @@
 
 ------------
 
-#### 8、总结一下，单例的各种写法，比较它们的优劣。
+#### 8、第十节作业，选做，总结一下，单例的各种写法，比较它们的优劣。
 #####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/common/singletons](https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/common/singletons "https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/common/singletons")
 
 ```java
@@ -105,3 +105,12 @@
         }
     }
 ```
+
+------------
+
+#### 9、第九节作业，选做，maven/spring的profile机制，都有什么用法?
+#####  XML方式：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/frame/src/main/resources/ioc")
+- 方式一：通过property创建一个无参Bean
+- 方式二：通过construct-arg创建一个有参的Bean
+- 方式三：通过class创建一个静态Bean
+- 方式四：通过factory-bean创建一个非静态Bean

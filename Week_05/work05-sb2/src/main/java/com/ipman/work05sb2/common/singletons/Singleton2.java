@@ -1,5 +1,6 @@
 package com.ipman.work05sb2.common.singletons;
 
+
 /**
  * Created by ipipman on 2020/11/19.
  *
@@ -9,6 +10,7 @@ package com.ipman.work05sb2.common.singletons;
  * @date 2020/11/19 3:16 下午
  */
 public class Singleton2 {
+
 
     // 懒汉线程安全模式，通过synchroized锁解决并发问题
     private static Singleton2 instance;
