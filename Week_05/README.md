@@ -119,3 +119,12 @@
 ```java
 com.ipman.work05sb2.Work05Sb2Application -Dfile.encoding=UTF8 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=3302 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/huangyan110110114/loclog/work/work05-sb2 -Xms8g -Xmx8g -Djava.net.preferIPv4Stack=true -XX:NewSize=3072m -XX:MaxNewSize=4096m -XX:+UseG1GC -XX:MaxGCPauseMillis=90 -XX:InitiatingHeapOccupancyPercent=70 -XX:ParallelGCThreads=8 -XX:ConcGCThreads=6 -XX:+PrintGCDetails -XX:+PrintReferenceGC -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintHeapAtGC -Xloggc:../logs/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:ErrorFile=../logs/hs_err_pid%p.log
 ```
+
+------------
+
+#### 10、第十节作业，必做，给前面课程提供的Student/Klass/School实现自动配置和Starter。
+#####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-spring-boot-starter-test/src/main](https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-spring-boot-starter-test/src/main "https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-spring-boot-starter-test/src/main")
+- 定义org.springframework.boot.autoconfigure.EnableAutoConfiguration自动化装配配置类
+- 定义EnableConfigurationProperties根据配置自动化装配
+- 增加@ConditionalOnWebApplication、@ConditionalOnProperty条件注解，只在Web环境、配置正确的环境中加载
+- 测试：在SpringBoot环境中加载自定义Starter的Bean
