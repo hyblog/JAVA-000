@@ -1,8 +1,14 @@
 package com.springboot.frame.proxy.saop;
 
+import com.springboot.frame.proxy.saop.CustomAspectJAnn;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 
 /**
@@ -33,8 +39,13 @@ public class CustomBaseAspectJ {
 
     //切入点之后的逻辑
     @After("customPointcut()")
-    public void afterAdvice() {
+    public void afterAdvice() throws NoSuchMethodException, ClassNotFoundException {
         System.out.println("PersonProxy.doAdvice() end ....");
+
+        //反射拿到注解的值
+        Method doing = PersonServiceImpl.class.getMethod("doing");
+        System.out.println(doing.getAnnotation(CustomAspectJAnn.class).cacheExpire());
+
     }
 
     //写入点之后异常处理逻辑

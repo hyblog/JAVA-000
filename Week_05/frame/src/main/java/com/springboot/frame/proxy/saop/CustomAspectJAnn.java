@@ -14,4 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface CustomAspectJAnn {
+
+    int cacheExpire() default 0;
+
 }

@@ -20,6 +20,7 @@ public class AspectJTests {
     @Autowired
     PersonServiceImpl personService;
 
+
     // AspectJ测试
     @Test
     public void doingTest(){

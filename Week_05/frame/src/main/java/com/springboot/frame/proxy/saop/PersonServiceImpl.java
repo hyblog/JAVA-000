@@ -17,7 +17,7 @@ public class PersonServiceImpl {
     /**
      * AspectJ
      */
-    @CustomAspectJAnn
+    @CustomAspectJAnn(cacheExpire = 60)
     public void doing() {
         Person person = new Person();
         person.doing();
