@@ -128,3 +128,15 @@ com.ipman.work05sb2.Work05Sb2Application -Dfile.encoding=UTF8 -agentlib:jdwp=tra
 - 定义EnableConfigurationProperties根据配置自动化装配
 - 增加@ConditionalOnWebApplication、@ConditionalOnProperty条件注解，只在Web环境、配置正确的环境中加载
 - 测试：在SpringBoot环境中加载自定义Starter的Bean
+
+------------
+
+#### 11、第十节作业，选做，总结Hibernate与MyBatis的各方面异同点。
+- 总结一：Hibernate是全自动的，Mybatis是半自动的
+    1. Hibernate完全可以通过对象的映射关系实现对数据库的操作，通过JavaBean与数据库表结构来自动生成SQL；
+    2. Mybatis仅有基本的字段映射，对象数据和对象关系需要通过手写SQL来实现管理；
+- 总结二：Hibernate默认集成完整日志系统，Mybatis可配置的日志信息较为简陋；
+- 总结三：Mybatis的SQL都是在XML里，SQL的灵活度较高，相对Hibernate简单很多，方便维护与优化；
+- 总结四：Hibernate的安全性较高，它是预编译的。Mybatis支持手动拼接SQL【${}是未经过预编译的】，需要规避SQL注入风险，
+
+
