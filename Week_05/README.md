@@ -139,4 +139,12 @@ com.ipman.work05sb2.Work05Sb2Application -Dfile.encoding=UTF8 -agentlib:jdwp=tra
 - 总结三：Mybatis的SQL都是在XML里，SQL的灵活度较高，相对Hibernate简单很多，方便维护与优化；
 - 总结四：Hibernate的安全性较高，它是预编译的。Mybatis支持手动拼接SQL【${}是未经过预编译的】，需要规避SQL注入风险，
 
+------------
 
+##### 12、第十节作业，选做，学习MyBatis-generator的用法和原理，学会自定义TypeHandler处理复杂类型。
+#####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/mybatis](https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/mybatis "https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/mybatis")
+
+------------
+
+##### 13、第十节作业，必须，研究一下JDBC接口和数据库连接池，掌握它们的设计和用法
+#####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/jdbc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/jdbc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/jdbc")
