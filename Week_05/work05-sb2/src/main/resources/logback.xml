@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <property name="logRoot" value="../logs"/>
+    <property name="appName" value="work05-sb2"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{0} %X{ServiceId} - %m%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- 日志文件-->
+    <appender name="Std.out" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logRoot}/${appName}/stdout.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/${appName}/logs/stdout.log.%d{yyyyMMddHH}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{0} %X{ServiceId} - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Std.err" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logRoot}/${appName}/stderr.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/${appName}/logs/stderr.log.%d{yyyyMMddHH}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{0} %X{ServiceId} - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_STDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref="Std.out"/>
+    </appender>
+
+    <appender name="ASYNC_STDERR" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>64</queueSize>
+        <appender-ref ref="Std.err"/>
+    </appender>
+
+
+    <logger name="org.springframework" level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNC_STDOUT" level="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
