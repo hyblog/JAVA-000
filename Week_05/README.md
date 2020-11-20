@@ -148,3 +148,9 @@ com.ipman.work05sb2.Work05Sb2Application -Dfile.encoding=UTF8 -agentlib:jdwp=tra
 
 ##### 13、第十节作业，必须，研究一下JDBC接口和数据库连接池，掌握它们的设计和用法
 #####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/jdbc](https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/jdbc "https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/jdbc")
+
+
+------------
+
+##### 14、第十节作业，挑战，基于AOP和自定义注解，实现@MyCache(60)对于指定方法返回值缓存60秒。
+#####  代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/cache](https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/cache "https://github.com/hyblog/JAVA-000/tree/main/Week_05/work05-sb2/src/main/java/com/ipman/work05sb2/cache")
