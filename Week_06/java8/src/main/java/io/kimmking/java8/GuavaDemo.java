@@ -25,8 +25,8 @@ public class GuavaDemo {
     static {
         bus.register(new GuavaDemo());
     }
-    
-    
+
+
     @SneakyThrows
     public static void main(String[] args) throws IOException {
     
