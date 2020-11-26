@@ -39,7 +39,6 @@
 - 性能：HikariCP > Druid > C3P0 > DBCP，其中HikariCP要比DBCP快2倍。
 - 综合性价比Druid功能全面，SQL的拦截器，PrepareStatement缓存，日志统计方面，扩展方面都比较全面
 - PSCache方面：DBCP、Druid、C3P0都支持，HikariCP不支持
-- 监控方面：DBCP、Druid、C3P0、Hikari都支持，HiariCP不支持
 - 监控方面：DBCP、Druid、C3P0都支持，HiariCP都支持JMX，而Druid还支持log和http
 - SQL拦截方面：Druid支持最好
 - 连接池方面：DBCP是LinedBlockingDeque，Druid是数组，HikariCP是ThreadLocal和CopyOnWriteArrayList
