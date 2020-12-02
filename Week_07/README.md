@@ -81,3 +81,79 @@
     Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61bb1e4d]
     Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61bb1e4d]
     Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61bb1e4d]
+	
+#### 3、作业，必做，读写分离-数据库框架版本2.0
+##### 代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_07/sharding-sphere-jdbc/src/main/java/com/ipman/mysql/shardingspherejdbc](https://github.com/hyblog/JAVA-000/tree/main/Week_07/sharding-sphere-jdbc/src/main/java/com/ipman/mysql/shardingspherejdbc "https://github.com/hyblog/JAVA-000/tree/main/Week_07/sharding-sphere-jdbc/src/main/java/com/ipman/mysql/shardingspherejdbc")
+##### 测试结论：使用Druid+Myabtis+ShardingSphereJdbc，读写分离
+    2020-12-02 20:37:38.659  INFO 31945 --- [           main] c.i.m.s.ShardingSphereJDBCTest           : 
+    //测试读写分离
+    Creating a new SqlSession
+    SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@e91b4f4] was not registered for synchronization because synchronization is not active
+    JDBC Connection [io.shardingjdbc.core.jdbc.core.connection.MasterSlaveConnection@716185fe] will not be managed by Spring
+    ==>  Preparing: SELECT LAST_INSERT_ID() 
+    ==> Parameters: 
+    <==    Columns: LAST_INSERT_ID()
+    <==        Row: 0
+    <==      Total: 1
+    ==>  Preparing: insert into demo ( id, `name` ) values ( ?, ? ) 
+    ==> Parameters: 0(Integer), ipman(String)
+    <==    Updates: 1
+    Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@e91b4f4]
+    Creating a new SqlSession
+    SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@526e8108] was not registered for synchronization because synchronization is not active
+    JDBC Connection [io.shardingjdbc.core.jdbc.core.connection.MasterSlaveConnection@4dcbae55] will not be managed by Spring
+    ==>  Preparing: update demo set `name` = ? where id = ? 
+    ==> Parameters: ipipman(String), 11(Integer)
+    <==    Updates: 0
+    Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@526e8108]
+    Creating a new SqlSession
+    SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ca16adc] was not registered for synchronization because synchronization is not active
+    JDBC Connection [io.shardingjdbc.core.jdbc.core.connection.MasterSlaveConnection@5ae1c281] will not be managed by Spring
+    ==>  Preparing: select id, `name` from demo where id = ? 
+    ==> Parameters: 11(Integer)
+    <==    Columns: id, name
+    <==        Row: 11, ipipman
+    <==      Total: 1
+    Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ca16adc]
+    Demo{id=11, name='ipipman'}
+    Creating a new SqlSession
+    SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@691500ab] was not registered for synchronization because synchronization is not active
+    JDBC Connection [io.shardingjdbc.core.jdbc.core.connection.MasterSlaveConnection@3db432c2] will not be managed by Spring
+    ==>  Preparing: select id, `name` from demo where id = ? 
+    ==> Parameters: 11(Integer)
+    <==    Columns: id, name
+    <==        Row: 11, ipipman
+    <==      Total: 1
+    Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@691500ab]
+    Demo{id=11, name='ipipman'}
+    2020-12-02 20:37:38.798  INFO 31945 --- [           main] c.i.m.s.ShardingSphereJDBCTest           :
+    
+    //读写分离+事务
+    Creating a new SqlSession
+    Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+    JDBC Connection [io.shardingjdbc.core.jdbc.core.connection.MasterSlaveConnection@6ecc02bb] will be managed by Spring
+    ==>  Preparing: SELECT LAST_INSERT_ID() 
+    ==> Parameters: 
+    <==    Columns: LAST_INSERT_ID()
+    <==        Row: 0
+    <==      Total: 1
+    ==>  Preparing: insert into demo ( id, `name` ) values ( ?, ? ) 
+    ==> Parameters: 0(Integer), ipman(String)
+    <==    Updates: 1
+    Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+    Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826] from current transaction
+    ==>  Preparing: update demo set `name` = ? where id = ? 
+    ==> Parameters: ipipipman(String), 11(Integer)
+    <==    Updates: 1
+    Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+    Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826] from current transaction
+    ==>  Preparing: select id, `name` from demo where id = ? 
+    ==> Parameters: 11(Integer)
+    <==    Columns: id, name
+    <==        Row: 11, ipipipman
+    <==      Total: 1
+    Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+    Demo{id=11, name='ipipipman'}
+    Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+    Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+    Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
