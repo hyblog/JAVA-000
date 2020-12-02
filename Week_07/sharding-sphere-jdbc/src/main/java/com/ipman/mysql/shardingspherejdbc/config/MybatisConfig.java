@@ -49,13 +49,18 @@ public class MybatisConfig {
     @javax.annotation.Resource(name = "shardingDataSource")
     private DataSource shardingDataSource;
 
+
+    @javax.annotation.Resource(name = "proxyDataSource")
+    private DataSource proxyDataSource;
+
     //配置主从数据源路由
     @Bean
     @Primary
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         log.info("> sqlSessionFactory");
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(shardingDataSource);
+        //sessionFactory.setDataSource(shardingDataSource);
+        sessionFactory.setDataSource(proxyDataSource);
         sessionFactory.setMapperLocations(getResource("mapper", "**/*.xml"));
         //日志打印控制台
         MybatisConfiguration configuration = new MybatisConfiguration();

@@ -46,6 +46,13 @@ public class ShardingSphereDataSource {
     }
 
 
+    //sharding proxy
+    @Bean(name = "proxyDataSource")
+    @ConfigurationProperties(prefix = "shardingsphere.proxy.datasource")
+    public DataSource proxyDataSource() {
+        return new DruidDataSource();
+    }
+
     //配置主从数据源路由
     @Bean(name = "shardingDataSource")
     @SneakyThrows

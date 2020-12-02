@@ -1,6 +1,31 @@
 # 学习笔记
 
-#### 1、作业，必做，按自己设计的表结构，插入100万订单模拟数据，测试不同方式的插入效率。
+#### 1、Mysql的事务
+
+------------
+
+![https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%BA%8B%E5%8A%A1.png](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%BA%8B%E5%8A%A1.png "https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%BA%8B%E5%8A%A1.png")
+
+------------
+
+#### 2、Mysql Undo & Redo Log
+
+------------
+
+![https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%B8%AD%E7%9A%84%E6%97%A5%E5%BF%97.png](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%B8%AD%E7%9A%84%E6%97%A5%E5%BF%97.png "https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%B8%AD%E7%9A%84%E6%97%A5%E5%BF%97.png")
+
+------------
+
+#### 3、Mysql锁
+
+------------
+
+![https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%B8%AD%E7%9A%84%E9%94%81.png](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%B8%AD%E7%9A%84%E9%94%81.png "https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_06/note/Mysql%E4%B8%AD%E7%9A%84%E9%94%81.png")
+
+------------
+
+
+#### 作业，必做，按自己设计的表结构，插入100万订单模拟数据，测试不同方式的插入效率。
 ##### 代码：[https://github.com/hyblog/JAVA-000/blob/main/Week_07/concurrent-dml/src/main/java/com/ipman/mysql/concurrentdml/service/impl/OrderServiceImpl.java](https://github.com/hyblog/JAVA-000/blob/main/Week_07/concurrent-dml/src/main/java/com/ipman/mysql/concurrentdml/service/impl/OrderServiceImpl.java "https://github.com/hyblog/JAVA-000/blob/main/Week_07/concurrent-dml/src/main/java/com/ipman/mysql/concurrentdml/service/impl/OrderServiceImpl.java")
 ##### 测试结论：使用Druid+Myabtis，使用逻辑分页批量插入方式，并开启了事务和日志，100万数据每页500条，共使用6分钟
     Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f382a5e]
@@ -10,7 +35,7 @@
     共使用：369335ms
 
 
-#### 2、作业，必做，读写分离-动态切换数据源版本1.0
+#### 作业，必做，读写分离-动态切换数据源版本1.0
 ##### 代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_07/multiple-datasource/src/main/java/com/ipman/mysql/multipledatasource](https://github.com/hyblog/JAVA-000/tree/main/Week_07/multiple-datasource/src/main/java/com/ipman/mysql/multipledatasource "https://github.com/hyblog/JAVA-000/tree/main/Week_07/multiple-datasource/src/main/java/com/ipman/mysql/multipledatasource")
 ##### 测试结论：使用Druid+Myabtis，使用AbstructRoutingDataSource+AOP实现主从数据源动态路由，写操作用master、读操作使用slave轮询策略，事务操作使用mater
     //读写测试
@@ -82,7 +107,7 @@
     Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61bb1e4d]
     Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61bb1e4d]
 	
-#### 3、作业，必做，读写分离-数据库框架版本2.0
+#### 作业，必做，读写分离-数据库框架版本2.0
 ##### 代码：[https://github.com/hyblog/JAVA-000/tree/main/Week_07/sharding-sphere-jdbc/src/main/java/com/ipman/mysql/shardingspherejdbc](https://github.com/hyblog/JAVA-000/tree/main/Week_07/sharding-sphere-jdbc/src/main/java/com/ipman/mysql/shardingspherejdbc "https://github.com/hyblog/JAVA-000/tree/main/Week_07/sharding-sphere-jdbc/src/main/java/com/ipman/mysql/shardingspherejdbc")
 ##### 测试结论：使用Druid+Myabtis+ShardingSphereJdbc，读写分离
     2020-12-02 20:37:38.659  INFO 31945 --- [           main] c.i.m.s.ShardingSphereJDBCTest           : 
@@ -157,3 +182,66 @@
     Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
     Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
     Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25ffd826]
+
+#### 作业，选做，读写分离-数据库中间件版本3.0
+##### 下载Sharding-Sphere-Porxy
+    wget https://archive.apache.org/dist/incubator/shardingsphere/4.0.1/apache-shardingsphere-incubating-4.0.1-sharding-proxy-bin.tar.gz
+	
+##### 解压 & 配置主从文件
+    # vi conf/config-master_slave.yaml
+    
+    schemaName: testdb
+    dataSources:
+      master_ds:
+        url: jdbc:mysql://10.211.55.6:3306/testdb?serverTimezone=UTC&useSSL=false
+        username: root
+        password: root
+        connectionTimeoutMilliseconds: 30000
+        idleTimeoutMilliseconds: 60000
+        maxLifetimeMilliseconds: 1800000
+        maxPoolSize: 50
+      slave_ds_0:
+        url: jdbc:mysql://10.211.55.7:3306/testdb?serverTimezone=UTC&useSSL=false
+        username: root
+        password: root
+        connectionTimeoutMilliseconds: 30000
+        idleTimeoutMilliseconds: 60000
+        maxLifetimeMilliseconds: 1800000
+        maxPoolSize: 50
+      slave_ds_1:
+        url: jdbc:mysql://10.211.55.8:3306/testdb?serverTimezone=UTC&useSSL=false
+        username: root
+        password: root
+        connectionTimeoutMilliseconds: 30000
+        idleTimeoutMilliseconds: 60000
+        maxLifetimeMilliseconds: 1800000
+        maxPoolSize: 50
+    
+    masterSlaveRule:
+      name: ms_ds
+      masterDataSourceName: master_ds
+      slaveDataSourceNames:
+        - slave_ds_0
+        - slave_ds_1
+		
+##### 配置Server文件
+    authentication:
+      users:
+        root:
+          password: root
+        sharding:
+          password: sharding
+          authorizedSchemas: sharding_db
+		  
+##### 启动 & 查看日志
+    # sh bin/start.sh
+    
+    # tail -f /usr/local/shardingsphere-proxy/logs/stdout.log
+	
+    [INFO ] 14:24:43.030 [ShardingSphere-Command-2] ShardingSphere-SQL - Actual SQL: slave_ds_1 ::: select 
+        id, `name`
+        from demo
+        where id = 11
+    [INFO ] 14:24:52.336 [ShardingSphere-Command-8] ShardingSphere-SQL - Logic SQL: select * from demo
+    [INFO ] 14:24:52.336 [ShardingSphere-Command-8] ShardingSphere-SQL - SQLStatement: SelectStatementContext(super=CommonSQLStatementContext(sqlStatement=org.apache.shardingsphere.sql.parser.sql.statement.dml.SelectStatement@360c770c, tablesContext=org.apache.shardingsphere.sql.parser.binder.segment.table.TablesContext@5b930659), tablesContext=org.apache.shardingsphere.sql.parser.binder.segment.table.TablesContext@5b930659, projectionsContext=ProjectionsContext(startIndex=7, stopIndex=7, distinctRow=false, projections=[ShorthandProjection(owner=Optional.empty, actualColumns=[ColumnProjection(owner=null, name=id, alias=Optional.empty), ColumnProjection(owner=null, name=name, alias=Optional.empty)])]), groupByContext=org.apache.shardingsphere.sql.parser.binder.segment.select.groupby.GroupByContext@1e43c03f, orderByContext=org.apache.shardingsphere.sql.parser.binder.segment.select.orderby.OrderByContext@663a437f, paginationContext=org.apache.shardingsphere.sql.parser.binder.segment.select.pagination.PaginationContext@33dbeca3, containsSubquery=false)
+    [INFO ] 14:24:52.336 [ShardingSphere-Command-8] ShardingSphere-SQL - Actual SQL: slave_ds_0 ::: select * from demo
