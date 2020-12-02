@@ -1,9 +1,9 @@
-package com.ipman.mysql.multipledatasource.service.impl;
+package com.ipman.mysql.shardingspherejdbc.service.impl;
 
-import com.ipman.mysql.multipledatasource.dao.DemoMapper;
-import com.ipman.mysql.multipledatasource.model.Demo;
-import com.ipman.mysql.multipledatasource.service.IDemoService;
-import lombok.extern.slf4j.Slf4j;
+import com.ipman.mysql.shardingspherejdbc.dao.DemoMapper;
+import com.ipman.mysql.shardingspherejdbc.model.Demo;
+import com.ipman.mysql.shardingspherejdbc.service.IDemoService;
+import groovy.util.logging.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,7 +2,9 @@ package com.ipman.mysql.multipledatasource.bean;
 
 import com.ipman.mysql.multipledatasource.enums.DBTypeEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.sql.DataSource;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -20,6 +22,7 @@ public class DBContextHolder {
     private static final ThreadLocal<DBTypeEnum> contextHolder = new ThreadLocal<>();
 
     private static final AtomicInteger counter = new AtomicInteger(-1);
+
 
     //设置当前线程数据源类型
     public static void set(final DBTypeEnum dbType) {

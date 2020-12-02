@@ -1,6 +1,7 @@
-package com.ipman.mysql.multipledatasource;
+package com.ipman.mysql.shardingspherejdbc;
 
-import com.ipman.mysql.multipledatasource.service.IDemoService;
+import com.ipman.mysql.shardingspherejdbc.service.IDemoService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,14 +15,18 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/12/2 4:48 下午
  */
 @SpringBootTest
-public class AbstractRoutingDSTest {
+@Slf4j
+public class ShardingSphereJDBCTest {
 
     @Autowired
     private IDemoService demoService;
 
     @Test
     public void run(){
+        log.info("//测试读写分离");
         demoService.testMasterSlave();
-//        demoService.testTransaction();
+        
+        log.info("//测试读写分离+事务");
+        demoService.testTransaction();
     }
 }
