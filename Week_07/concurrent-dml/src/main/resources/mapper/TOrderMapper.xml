@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipman.mysql.concurrentdml.dao.TOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ipman.mysql.concurrentdml.model.TOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="buy_amount" property="buyAmount" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="pay_type" property="payType" jdbcType="TINYINT" />
+    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="spu_id" property="spuId" jdbcType="INTEGER" />
+    <result column="spu_code" property="spuCode" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="TINYINT" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="order_refund_price" property="orderRefundPrice" jdbcType="DECIMAL" />
+    <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+    <result column="real_pay" property="realPay" jdbcType="DECIMAL" />
+    <result column="pay_id" property="payId" jdbcType="VARCHAR" />
+    <result column="diff_price" property="diffPrice" jdbcType="DECIMAL" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="TINYINT" />
+    <result column="pay_error_reason" property="payErrorReason" jdbcType="VARCHAR" />
+    <result column="vip_price" property="vipPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ipman.mysql.concurrentdml.model.TOrder" extends="BaseResultMap" >
+    <result column="pay_context" property="payContext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, created_time, modified_time, order_code, user_id, supplier_id, channel_id, phone, 
+    buy_amount, pay_time, pay_type, sku_id, account, spu_id, spu_code, order_type, activity_id, 
+    `status`, order_refund_price, pay_amount, real_pay, pay_id, diff_price, transaction_id, 
+    is_del, pay_error_reason, vip_price
+  </sql>
+  <sql id="Blob_Column_List" >
+    pay_context
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipman.mysql.concurrentdml.model.TOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order (id, created_time, modified_time, 
+      order_code, user_id, supplier_id, 
+      channel_id, phone, buy_amount, 
+      pay_time, pay_type, sku_id, 
+      account, spu_id, spu_code, 
+      order_type, activity_id, `status`, 
+      order_refund_price, pay_amount, real_pay, 
+      pay_id, diff_price, transaction_id, 
+      is_del, pay_error_reason, vip_price, 
+      pay_context)
+    values (#{id,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, 
+      #{orderCode,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER}, 
+      #{channelId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{buyAmount,jdbcType=INTEGER}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{payType,jdbcType=TINYINT}, #{skuId,jdbcType=INTEGER}, 
+      #{account,jdbcType=VARCHAR}, #{spuId,jdbcType=INTEGER}, #{spuCode,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=TINYINT}, #{activityId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{orderRefundPrice,jdbcType=DECIMAL}, #{payAmount,jdbcType=DECIMAL}, #{realPay,jdbcType=DECIMAL}, 
+      #{payId,jdbcType=VARCHAR}, #{diffPrice,jdbcType=DECIMAL}, #{transactionId,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=TINYINT}, #{payErrorReason,jdbcType=VARCHAR}, #{vipPrice,jdbcType=DECIMAL}, 
+      #{payContext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="multipleInsertByList" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order (
+    order_code, user_id, supplier_id,
+    channel_id, phone, buy_amount,
+    pay_time, pay_type, sku_id,
+    account, spu_id, spu_code,
+    order_type, activity_id, `status`,
+    order_refund_price, pay_amount, real_pay,
+    pay_id, diff_price, transaction_id,
+    is_del, pay_error_reason, vip_price,
+    pay_context)
+    values
+    <foreach collection="orderList" item="item" index="index" separator=",">
+    (
+      #{item.orderCode,jdbcType=VARCHAR},
+      #{item.userId,jdbcType=VARCHAR},
+      #{item.supplierId,jdbcType=INTEGER},
+      #{item.channelId,jdbcType=INTEGER},
+      #{item.phone,jdbcType=VARCHAR},
+      #{item.buyAmount,jdbcType=INTEGER},
+      #{item.payTime,jdbcType=TIMESTAMP},
+      #{item.payType,jdbcType=TINYINT},
+      #{item.skuId,jdbcType=INTEGER},
+      #{item.account,jdbcType=VARCHAR},
+      #{item.spuId,jdbcType=INTEGER},
+      #{item.spuCode,jdbcType=VARCHAR},
+      #{item.orderType,jdbcType=TINYINT},
+      #{item.activityId,jdbcType=INTEGER},
+      #{item.status,jdbcType=TINYINT},
+      #{item.orderRefundPrice,jdbcType=DECIMAL},
+      #{item.payAmount,jdbcType=DECIMAL},
+      #{item.realPay,jdbcType=DECIMAL},
+      #{item.payId,jdbcType=VARCHAR},
+      #{item.diffPrice,jdbcType=DECIMAL},
+      #{item.transactionId,jdbcType=VARCHAR},
+      #{item.isDel,jdbcType=TINYINT},
+      #{item.payErrorReason,jdbcType=VARCHAR},
+      #{item.vipPrice,jdbcType=DECIMAL},
+      #{item.payContext,jdbcType=LONGVARCHAR}
+    )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipman.mysql.concurrentdml.model.TOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+      <if test="orderCode != null" >
+        order_code,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="buyAmount != null" >
+        buy_amount,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="spuId != null" >
+        spu_id,
+      </if>
+      <if test="spuCode != null" >
+        spu_code,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="status != null" >
+        `status`,
+      </if>
+      <if test="orderRefundPrice != null" >
+        order_refund_price,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="realPay != null" >
+        real_pay,
+      </if>
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="diffPrice != null" >
+        diff_price,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="payErrorReason != null" >
+        pay_error_reason,
+      </if>
+      <if test="vipPrice != null" >
+        vip_price,
+      </if>
+      <if test="payContext != null" >
+        pay_context,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=INTEGER},
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAmount != null" >
+        #{buyAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="spuId != null" >
+        #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="spuCode != null" >
+        #{spuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="orderRefundPrice != null" >
+        #{orderRefundPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realPay != null" >
+        #{realPay,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="diffPrice != null" >
+        #{diffPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="payErrorReason != null" >
+        #{payErrorReason,jdbcType=VARCHAR},
+      </if>
+      <if test="vipPrice != null" >
+        #{vipPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payContext != null" >
+        #{payContext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipman.mysql.concurrentdml.model.TOrder" >
+    update t_order
+    <set >
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCode != null" >
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null" >
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAmount != null" >
+        buy_amount = #{buyAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="spuId != null" >
+        spu_id = #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="spuCode != null" >
+        spu_code = #{spuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="orderRefundPrice != null" >
+        order_refund_price = #{orderRefundPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realPay != null" >
+        real_pay = #{realPay,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="diffPrice != null" >
+        diff_price = #{diffPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="payErrorReason != null" >
+        pay_error_reason = #{payErrorReason,jdbcType=VARCHAR},
+      </if>
+      <if test="vipPrice != null" >
+        vip_price = #{vipPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payContext != null" >
+        pay_context = #{payContext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ipman.mysql.concurrentdml.model.TOrder" >
+    update t_order
+    set created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      buy_amount = #{buyAmount,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=TINYINT},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      spu_id = #{spuId,jdbcType=INTEGER},
+      spu_code = #{spuCode,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=TINYINT},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=TINYINT},
+      order_refund_price = #{orderRefundPrice,jdbcType=DECIMAL},
+      pay_amount = #{payAmount,jdbcType=DECIMAL},
+      real_pay = #{realPay,jdbcType=DECIMAL},
+      pay_id = #{payId,jdbcType=VARCHAR},
+      diff_price = #{diffPrice,jdbcType=DECIMAL},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=TINYINT},
+      pay_error_reason = #{payErrorReason,jdbcType=VARCHAR},
+      vip_price = #{vipPrice,jdbcType=DECIMAL},
+      pay_context = #{payContext,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipman.mysql.concurrentdml.model.TOrder" >
+    update t_order
+    set created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      buy_amount = #{buyAmount,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=TINYINT},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      spu_id = #{spuId,jdbcType=INTEGER},
+      spu_code = #{spuCode,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=TINYINT},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=TINYINT},
+      order_refund_price = #{orderRefundPrice,jdbcType=DECIMAL},
+      pay_amount = #{payAmount,jdbcType=DECIMAL},
+      real_pay = #{realPay,jdbcType=DECIMAL},
+      pay_id = #{payId,jdbcType=VARCHAR},
+      diff_price = #{diffPrice,jdbcType=DECIMAL},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=TINYINT},
+      pay_error_reason = #{payErrorReason,jdbcType=VARCHAR},
+      vip_price = #{vipPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
