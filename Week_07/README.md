@@ -24,6 +24,14 @@
 
 ------------
 
+#### 4、Mysql主从
+
+------------
+
+![https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_07/notes/Mysql%E4%B8%BB%E4%BB%8E.png](https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_07/notes/Mysql%E4%B8%BB%E4%BB%8E.png "https://raw.githubusercontent.com/hyblog/JAVA-000/main/Week_07/notes/Mysql%E4%B8%BB%E4%BB%8E.png")
+
+------------
+
 
 #### 作业，必做，按自己设计的表结构，插入100万订单模拟数据，测试不同方式的插入效率。
 ##### 代码：[https://github.com/hyblog/JAVA-000/blob/main/Week_07/concurrent-dml/src/main/java/com/ipman/mysql/concurrentdml/service/impl/OrderServiceImpl.java](https://github.com/hyblog/JAVA-000/blob/main/Week_07/concurrent-dml/src/main/java/com/ipman/mysql/concurrentdml/service/impl/OrderServiceImpl.java "https://github.com/hyblog/JAVA-000/blob/main/Week_07/concurrent-dml/src/main/java/com/ipman/mysql/concurrentdml/service/impl/OrderServiceImpl.java")
