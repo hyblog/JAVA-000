@@ -1,11 +1,7 @@
 package com.ipman.work06java8.gof.prototype;
 
-import com.google.common.collect.HashBiMap;
 import lombok.ToString;
-import org.mockito.internal.creation.SuspendMethod;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import java.awt.*;
 import java.util.Hashtable;
 
 /**
