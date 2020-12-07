@@ -253,3 +253,107 @@
     [INFO ] 14:24:52.336 [ShardingSphere-Command-8] ShardingSphere-SQL - Logic SQL: select * from demo
     [INFO ] 14:24:52.336 [ShardingSphere-Command-8] ShardingSphere-SQL - SQLStatement: SelectStatementContext(super=CommonSQLStatementContext(sqlStatement=org.apache.shardingsphere.sql.parser.sql.statement.dml.SelectStatement@360c770c, tablesContext=org.apache.shardingsphere.sql.parser.binder.segment.table.TablesContext@5b930659), tablesContext=org.apache.shardingsphere.sql.parser.binder.segment.table.TablesContext@5b930659, projectionsContext=ProjectionsContext(startIndex=7, stopIndex=7, distinctRow=false, projections=[ShorthandProjection(owner=Optional.empty, actualColumns=[ColumnProjection(owner=null, name=id, alias=Optional.empty), ColumnProjection(owner=null, name=name, alias=Optional.empty)])]), groupByContext=org.apache.shardingsphere.sql.parser.binder.segment.select.groupby.GroupByContext@1e43c03f, orderByContext=org.apache.shardingsphere.sql.parser.binder.segment.select.orderby.OrderByContext@663a437f, paginationContext=org.apache.shardingsphere.sql.parser.binder.segment.select.pagination.PaginationContext@33dbeca3, containsSubquery=false)
     [INFO ] 14:24:52.336 [ShardingSphere-Command-8] ShardingSphere-SQL - Actual SQL: slave_ds_0 ::: select * from demo
+	
+
+#### 作业，必做，设计对前面的订单表数据进行水平分库分表，拆分2个库，每个库16张表。 并在新结构在演示常见的增删改查操作。代码、sql和配置文件，上传到github。
+##### 配置主从+读写分离+分片配置
+    vi conf'/config-master_slave.yaml
+    
+    schemaName: sharding_master_slave_db
+    
+    dataSources:
+      ds0:
+        url: jdbc:mysql://10.211.55.6:3306/sharding_db_0?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useAffectedRows=true
+        username: root
+        password: root
+      ds0_slave0:
+        url: jdbc:mysql://10.211.55.7:3306/sharding_db_0?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useAffectedRows=true
+        username: root
+        password: root
+      ds0_slave1:
+        url: jdbc:mysql://10.211.55.8:3306/sharding_db_0?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useAffectedRows=true
+        username: root
+        password: root
+      ds1:
+        url: jdbc:mysql://10.211.55.6:3306/sharding_db_1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useAffectedRows=true
+        username: root
+        password: root
+      ds1_slave0:
+        url: jdbc:mysql://10.211.55.7:3306/sharding_db_1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useAffectedRows=true
+        username: root
+        password: root
+      ds1_slave1:
+        url: jdbc:mysql://10.211.55.8:3306/sharding_db_1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useAffectedRows=true
+        username: root
+        password: root
+    
+    
+    shardingRule:  
+      tables:
+        t_order: 
+          actualDataNodes: ms_ds${0..1}.t_order${0..1}
+          databaseStrategy:
+            inline:
+              shardingColumn: user_id
+              algorithmExpression: ms_ds${user_id % 2}
+          tableStrategy: 
+            inline:
+              shardingColumn: order_id
+              algorithmExpression: t_order${order_id % 2}
+        t_order_item:
+          actualDataNodes: ms_ds${0..1}.t_order_item${0..1}
+          databaseStrategy:
+            inline:
+              shardingColumn: user_id
+              algorithmExpression: ms_ds${user_id % 2}
+          tableStrategy:
+            inline:
+              shardingColumn: order_id
+              algorithmExpression: t_order_item${order_id % 2}  
+      bindingTables:
+        - t_order,t_order_item
+      broadcastTables:
+        - t_config
+    
+      
+      masterSlaveRules:
+          ms_ds0:
+            masterDataSourceName: ds0
+            slaveDataSourceNames:
+              - ds0_slave0
+              - ds0_slave1
+          ms_ds1:
+            masterDataSourceName: ds1
+            slaveDataSourceNames: 
+              - ds1_slave0
+              - ds1_slave1
+    
+##### 效果验证
+        mysql> show tables;
+        +-------------------------+
+        | Tables_in_sharding_db_1 |
+        +-------------------------+
+        | t_order                 |
+        +-------------------------+
+        1 row in set (0.00 sec)
+        
+        mysql> select * from t_order;
+        +----+-------+---------+----------+
+        | id | name  | user_id | order_id |
+        +----+-------+---------+----------+
+        | 35 | ipman |       1 |        1 |
+        +----+-------+---------+----------+
+    	[INFO ] 00:26:32.092 [ShardingSphere-Command-6] ShardingSphere-SQL - Actual SQL: ds1_slave0 ::: select * from t_order0 where user_id = 1
+    	[INFO ] 00:26:32.092 [ShardingSphere-Command-6] ShardingSphere-SQL - Actual SQL: ds1_slave1 ::: select * from t_order1 where user_id = 1
+        1 row in set (0.02 sec)
+    	mysql> select * from t_order where user_id = 1;
+    	+----+-------+---------+----------+
+       | id | name  | user_id | order_id |
+       +----+-------+---------+----------+
+       | 35 | ipman |       1 |        1 |
+       +----+-------+---------+----------+
+      1 row in set (0.00 sec
+       [INFO ] 00:25:27.499 [ShardingSphere-Command-4] ShardingSphere-SQL - Actual SQL: ds0_slave1 ::: select * from t_order0
+       [INFO ] 00:25:27.499 [ShardingSphere-Command-4] ShardingSphere-SQL - Actual SQL: ds0_slave0 ::: select * from t_order1
+       [INFO ] 00:25:27.499 [ShardingSphere-Command-4] ShardingSphere-SQL - Actual SQL: ds1_slave0 ::: select * from t_order0
+       [INFO ] 00:25:27.499 [ShardingSphere-Command-4] ShardingSphere-SQL - Actual SQL: ds1_slave1 ::: select * from t_order1
