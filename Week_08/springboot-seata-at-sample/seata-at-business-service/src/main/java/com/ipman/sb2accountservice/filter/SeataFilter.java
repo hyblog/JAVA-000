@@ -21,6 +21,7 @@ public class SeataFilter implements Filter {
         String xid = req.getHeader(RootContext.KEY_XID.toLowerCase());
         boolean isBind = false;
         if (StringUtils.isNotBlank(xid)) {
+            //绑定全局事务XID（Global Transaction）
             RootContext.bind(xid);
             isBind = true;
         }
