@@ -1,6 +1,5 @@
 package com.ipman.mysql.multipledatasource.bean;
 
-import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
@@ -20,4 +19,5 @@ public class DBRouingDataSource extends AbstractRoutingDataSource {
     protected Object determineCurrentLookupKey() {
         return DBContextHolder.get();
     }
+    
 }
